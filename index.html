@@ -4,24 +4,29 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ライフリズム</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>生活習慣プランナー</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
+  <script src="app.js" defer></script>
 </head>
 <body>
-  <div class="layout">
-    <aside class="sidebar">
-      <h1 class="brand">🌿 ライフリズム</h1>
-      <nav id="nav" class="nav"></nav>
-      <div class="side-info">
-        <div id="side-score" class="side-score"></div>
-        <p id="side-goal" class="muted small"></p>
-      </div>
-    </aside>
-    <main id="app"></main>
-  </div>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js"></script>
-  <script src="app.js"></script>
+  <header class="site-header">
+    <h1>生活習慣プランナー</h1>
+    <nav id="nav">
+      <a href="#today" data-page="today">今日</a>
+      <a href="#schedule" data-page="schedule">予定管理</a>
+      <a href="#habits" data-page="habits">習慣設定</a>
+      <a href="#sleep" data-page="sleep">睡眠記録</a>
+      <a href="#review" data-page="review">振り返り</a>
+      <a href="#data" data-page="data">データ</a>
+    </nav>
+  </header>
+
+  <main id="app"></main>
+
+  <div id="toast" role="status" aria-live="polite"></div>
+
+  <noscript>このアプリを利用するにはJavaScriptを有効にしてください。</noscript>
 </body>
 </html>
