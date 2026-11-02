@@ -1,0 +1,13 @@
+{
+  "name": "habit-planner",
+  "version": "3.0.0",
+  "private": true,
+  "description": "生活習慣プランナー（GitHub Pages用の静的サイト）",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test"
+  }
+}
