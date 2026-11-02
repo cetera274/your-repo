@@ -5,27 +5,70 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#4f7cff">
   <title>生活習慣プランナー</title>
+  <script>
+    try {
+      var prefs = JSON.parse(localStorage.getItem("habitPlanner.prefs") || "{}");
+      if (prefs && (prefs.theme === "light" || prefs.theme === "dark")) {
+        document.documentElement.dataset.theme = prefs.theme;
+      }
+    } catch (e) {}
+  </script>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icons/icon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
   <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
-  <script src="app.js" defer></script>
+  <script src="vendor/chart.umd.js" defer></script>
+  <script type="module" src="js/main.js"></script>
 </head>
 <body>
+  <a class="skip-link" href="#app" id="skip-link">本文へスキップ</a>
+
   <header class="site-header">
     <h1>生活習慣プランナー</h1>
-    <nav id="nav">
+    <nav id="nav" aria-label="メインメニュー">
       <a href="#today" data-page="today">今日</a>
+      <a href="#planner" data-page="planner">プランナー</a>
+      <a href="#calendar" data-page="calendar">カレンダー</a>
       <a href="#schedule" data-page="schedule">予定管理</a>
       <a href="#habits" data-page="habits">習慣設定</a>
       <a href="#sleep" data-page="sleep">睡眠記録</a>
       <a href="#review" data-page="review">振り返り</a>
-      <a href="#data" data-page="data">データ</a>
+      <a href="#settings" data-page="settings">設定</a>
     </nav>
   </header>
 
-  <main id="app"></main>
+  <div id="update-banner" class="update-banner" role="region" aria-label="更新のお知らせ" hidden>
+    <span>新しいバージョンがあります。</span>
+    <button type="button" class="btn-primary btn-small" id="btn-update">更新する</button>
+    <button type="button" class="btn-small" id="btn-update-later">後で</button>
+  </div>
 
-  <div id="toast" role="status" aria-live="polite"></div>
+  <main id="app" tabindex="-1"></main>
+
+  <dialog id="form-dialog" aria-labelledby="form-dialog-title">
+    <form id="form-dialog-form" novalidate>
+      <h2 id="form-dialog-title" class="dialog-title"></h2>
+      <div id="form-dialog-body"></div>
+      <p class="dialog-error" id="form-dialog-error" role="alert"></p>
+      <div class="dialog-actions">
+        <button type="button" id="form-dialog-cancel">キャンセル</button>
+        <button type="submit" class="btn-primary">保存</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="choice-dialog" aria-label="確認" aria-describedby="choice-message">
+    <form method="dialog">
+      <p id="choice-message"></p>
+      <div class="dialog-actions" id="choice-actions"></div>
+    </form>
+  </dialog>
+
+  <div id="toast" aria-hidden="true"></div>
+  <div id="live-polite" class="sr-only" role="status" aria-live="polite"></div>
+  <div id="live-assertive" class="sr-only" role="alert" aria-live="assertive"></div>
 
   <noscript>このアプリを利用するにはJavaScriptを有効にしてください。</noscript>
 </body>
